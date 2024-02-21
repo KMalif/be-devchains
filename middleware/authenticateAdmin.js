@@ -14,8 +14,7 @@ const authenticateAdmin = async (req, res, next) => {
 
       if (decodedToken.data.role !== 1) {
         return handleClientError(res, 403, "Access Denied: Not an Admin");
-      }
-
+      }      
       req.user = decodedToken;
       next();
     });

@@ -11,8 +11,9 @@ const authenticateUser = async (req, res, next) => {
       if (err) {
         return handleClientError(res, 403, "Token Expired...");
       }
+      req.userId = decodedToken.data.id;
       req.user = decodedToken;
-      next();
+      return next();
     });
   } catch (error) {
     return handleServerError(res);

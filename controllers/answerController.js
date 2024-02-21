@@ -17,6 +17,7 @@ exports.addAnswer = async (req, res) => {
 
         const response = await Answer.create({
             ...newData,
+            user_id: req.userId,
             image_url: imageUrl?.url
         });
 
@@ -29,8 +30,6 @@ exports.addAnswer = async (req, res) => {
         return handleServerError(res)
     }
 };
-
-
 
 exports.getUserAnswers = async (req, res) => {
     try {

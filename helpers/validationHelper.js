@@ -17,7 +17,7 @@ const addQuestionValidation = (data) => {
         title: Joi.string().required(), 
         description: Joi.string().required(),
         image_url: Joi.string().optional(),
-        user_id: Joi.number().required(),
+        // user_id: Joi.number().required(),
     });
     
     if (schema.validate(data).error) {
@@ -31,7 +31,6 @@ const addAnswerValidation = (data) => {
         description: Joi.string().required(),
         image_url: Joi.string().optional(),
         question_id: Joi.number().required(),
-        user_id: Joi.number().required(),
     });
     
     if (schema.validate(data).error) {
