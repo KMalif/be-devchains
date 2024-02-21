@@ -9,8 +9,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      title: {
         type: Sequelize.STRING
+      },
+      description: {
+        type: Sequelize.STRING
+      },
+      image_url: {
+        type: Sequelize.STRING
+      },
+      question_id: {
+        type: Sequelize.INTEGER
+      },
+      user_id: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
