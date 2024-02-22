@@ -9,13 +9,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Question, {
+        as: 'questions',
+        foreignKey: {
+          name: 'user_id'
+        }
+      });
+
+      User.hasMany(models.Answer, {
+        as: 'answers',
+        foreignKey: {
+          name: 'user_id'
+        }
+      })
+
     }
   }
   User.init(
     {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
       fullName: DataTypes.STRING,
       role: DataTypes.STRING,
-      phoneNumber: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       imageUrl: DataTypes.STRING,

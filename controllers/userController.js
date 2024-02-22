@@ -61,7 +61,7 @@ exports.register = async (req, res) => {
 
     const hashingPassword = hash(newData.password);
     newData.password = hashingPassword;
-    newData.role = 2;
+    newData.role = 'user';
 
     await User.create(newData);
 
@@ -130,6 +130,34 @@ exports.resetPassword = async (req, res) => {
     res.status(200).json({ message: "Success" });
   } catch (error) {
     console.log(error);
+    return handleServerError(res);
+  }
+};
+
+exports.firebaseLogin = (req, res) => {
+  try {
+    const tokenPayload = {
+      id: req.user?.user_id,
+      fullName: req.user?.name,
+      role: '2',
+      email: req.user?.email,
+      imageUrl: req.user?.picture,
+    };
+    const token = generateToken(tokenPayload);
+    res.status(200).json({ message: "Login Sucess", status: 200, token: token });
+
+  }catch (err) {
+    console.log(err.message);
+    return handleServerError(res);
+  }
+};
+
+exports.getAllUser = async (req, res) => {
+  try {
+    const response = await User.findAll();
+    res.status(200).json({ message: "Get all users", status: 200, data: response });
+  }catch (err) {
+    console.log(err.message);
     return handleServerError(res);
   }
 };

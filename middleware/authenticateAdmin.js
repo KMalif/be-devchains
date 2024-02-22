@@ -12,7 +12,7 @@ const authenticateAdmin = async (req, res, next) => {
         return handleClientError(res, 403, "Token Expired");
       }
 
-      if (decodedToken.data.role !== 1) {
+      if (decodedToken.data.role !== 'admin') {
         return handleClientError(res, 403, "Access Denied: Not an Admin");
       }      
       req.user = decodedToken;

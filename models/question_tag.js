@@ -14,8 +14,27 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Question_tag.init({
-    question_id: DataTypes.INTEGER,
-    tag_id: DataTypes.INTEGER
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    question_id:{
+      type: DataTypes.UUID,
+      references: {
+        model: 'Question',
+        key: 'id',
+      },
+      primaryKey: true,
+    }, 
+    tag_id: {
+      type: DataTypes.UUID,
+      references: {
+        model: 'Tag',
+        key: 'id',
+      },
+      primaryKey: true,
+    } 
   }, {
     sequelize,
     modelName: 'Question_tag',

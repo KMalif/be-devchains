@@ -30,7 +30,7 @@ const addAnswerValidation = (data) => {
         title: Joi.string().optional(), 
         description: Joi.string().required(),
         image_url: Joi.string().optional(),
-        question_id: Joi.number().required(),
+        question_id: Joi.string().required(),
     });
     
     if (schema.validate(data).error) {

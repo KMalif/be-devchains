@@ -11,14 +11,32 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Answer.belongsTo(models.User, {
+        as: 'user',
+        foreignKey: {
+          name: 'user_id'
+        }
+      })
+
+      Answer.belongsTo(models.Question, {
+        as: 'question',
+        foreignKey: {
+          name: 'question_id'
+        }
+      })
     }
   }
   Answer.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     image_url: DataTypes.STRING,
-    question_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER
+    question_id: DataTypes.UUID,
+    user_id: DataTypes.UUID,
   }, {
     sequelize,
     modelName: 'Answer',

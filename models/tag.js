@@ -11,9 +11,19 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Tag.belongsToMany(models.Question, { 
+        through: 'Question_tag',
+        foreignKey: 'tag_id'
+      });
+      
     }
   }
   Tag.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     name: DataTypes.STRING,
     description:DataTypes.STRING
   }, {

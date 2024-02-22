@@ -9,6 +9,7 @@ const { uploadToCloudinary, cloudinaryDeleteImg } = require("../utils/cloudinary
 exports.addQuestion = async (req, res) => {
     let imageUrl;
     try{
+        console.log(req.user.data, "<<payload token");
         const newData = req.body;
         addQuestionValidation(newData);
         

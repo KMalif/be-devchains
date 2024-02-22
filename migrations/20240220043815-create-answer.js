@@ -5,9 +5,9 @@ module.exports = {
     await queryInterface.createTable('Answers', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
       },
       title: {
         type: Sequelize.STRING
@@ -19,10 +19,24 @@ module.exports = {
         type: Sequelize.STRING
       },
       question_id: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.UUID,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Questions',
+          key: 'id',
+          as: 'question_id',
+        }
       },
       user_id: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.UUID,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+          as: 'user_id',
+        }
       },
       createdAt: {
         allowNull: false,

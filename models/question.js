@@ -11,14 +11,37 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      
+      Question.belongsTo(models.User, {
+        as: 'user',
+        foreignKey: {
+          name: 'user_id'
+        }
+      });
+
+      Question.hasMany(models.Answer, {
+        as: 'answers',
+        foreignKey: {
+          name: 'question_id'
+        }
+      });
+
+      Question.belongsToMany(models.Tag, { 
+        through: 'Question_tag', 
+        foreignKey: 'question_id'
+      });
+
     }
   }
   Question.init({
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     title: DataTypes.STRING,
     description: DataTypes.STRING,
     image_url: DataTypes.STRING,
-    user_id: DataTypes.INTEGER
+    user_id: DataTypes.UUID,
   }, {
     sequelize,
     modelName: 'Question',
