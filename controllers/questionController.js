@@ -40,7 +40,8 @@ exports.getAllQuestion = async (req, res) => {
                 user_id: {
                     [Op.ne]: req.userId
                 }
-            }
+            }, 
+            include: ['user']
         });
         res.status(200).json({ message: "success get questions", status: 200, data: response });
 
