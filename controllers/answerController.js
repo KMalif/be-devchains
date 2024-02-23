@@ -7,6 +7,7 @@ const fileName = "controller/answerController.js";
 const { uploadToCloudinary, cloudinaryDeleteImg } = require("../utils/cloudinary");
 
 exports.addAnswer = async (req, res) => {
+    let imageUrl;
     try {
         const newData = req.body;
         addAnswerValidation(newData);
@@ -21,7 +22,7 @@ exports.addAnswer = async (req, res) => {
             image_url: imageUrl?.url
         });
 
-        res.status(201).json({ message: "New question created", status: 201, data: response });
+        res.status(201).json({ message: "New answer created", status: 201, data: response });
 
     }catch (err) {
         console.log([fileName, "POST Create question", "ERROR"], {

@@ -17,6 +17,9 @@ const addQuestionValidation = (data) => {
         title: Joi.string().required(), 
         description: Joi.string().required(),
         image_url: Joi.string().optional(),
+        tagIds: Joi.array().items(
+            Joi.string()
+        )
         // user_id: Joi.number().required(),
     });
     
@@ -29,7 +32,7 @@ const addAnswerValidation = (data) => {
     const schema = Joi.object({
         title: Joi.string().optional(), 
         description: Joi.string().required(),
-        image_url: Joi.string().optional(),
+        
         question_id: Joi.string().required(),
     });
     

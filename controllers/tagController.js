@@ -30,7 +30,7 @@ exports.addTags = async (req, res) => {
     }
 };
 
-exports.getTagByName = (req, res) => {
+exports.getTagByName = async (req, res) => {
     try {
         const reqBody = req.body;
         
@@ -43,6 +43,18 @@ exports.getTagByName = (req, res) => {
         });
 
         res.status(200).json({ message: "Success get tags", status: 200, data: response });
+    }catch (err) {
+        console.log([fileName, "search Tag by name", "ERROR"], {
+            message: { info: `${err}` },
+        });
+        return handleServerError(res)
+    }
+};
+
+exports.getAllTags = async (req, res) => {
+    try{
+        const tags = await Tag.findAll();
+        res.status(200).json({ message: "Success get all tags", status: 200, data: tags });
     }catch (err) {
         console.log([fileName, "search Tag by name", "ERROR"], {
             message: { info: `${err}` },
