@@ -1,6 +1,6 @@
 const { handleClientError, handleServerError } = require("../helpers/handleError");
 const { addTagValidation } = require("../helpers/validationHelper");
-const { Tag } = require("../models");
+const { Tag, sequelize } = require("../models");
 const { Op } = require("sequelize");
 const _ = require("lodash");
 const fileName = "controller/tagController.js";
@@ -62,4 +62,25 @@ exports.getAllTags = async (req, res) => {
         return handleServerError(res)
     }
 };
+
+exports.getPopularTags = async (req, res) => {
+    try {
+        const popularTags = await sequelize.query(
+            `SELECT Tags.id AS tag_id, Tags.name AS tag_name, COUNT(*) AS tagCount
+            FROM Question_tags
+            INNER JOIN Tags ON Question_tags.tag_id = Tags.id
+            GROUP BY tag_id, tag_name
+            ORDER BY tagCount DESC
+            LIMIT 10;`,
+            { type: sequelize.QueryTypes.SELECT }
+        );
+
+        res.status(200).json({ message: "Success get popular tags", status: 200, data: popularTags });
+    }catch (err) {
+        console.log([fileName, "popular tag", "ERROR"], {
+            message: { info: `${err}` },
+        });
+        return handleServerError(res)
+    }
+}
 
